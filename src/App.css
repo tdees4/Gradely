@@ -1,0 +1,47 @@
+.logo {
+  height: 3em;
+  padding-bottom: 13em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #64ffcbaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61fbc2aa);
+}
+
+.main-page-button {
+  margin-inline: 0.4em !important;
+}
+
+.sign-in-bottom-button {
+  margin-inline: 0.2em !important;
+}
+
+.sign-up-in-item {
+  margin: 0.3em;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
