@@ -11,6 +11,7 @@ function App() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
+  // Handle sign-up authentication with supabase
   const handleSignUp = async () => {
     if (!email || !password) {
       alert('Please fill in all fields')
@@ -18,17 +19,29 @@ function App() {
     }
     
     setLoading(true)
-    
-    // Simulate API call
-    setTimeout(() => {
-      alert(`Sign up successful for ${email}!`)
-      setLoading(false)
-      setShowSignUp(false)
-      setEmail('')
-      setPassword('')
-    }, 1000)
+
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password
+    })
+
+    if (error != null || data == null) {
+      alert('ERROR: Please try again')
+      return
+    }
+
+    setLoading(false)
+    setShowSignUp(false)
+    setEmail('')
+    setPassword('')
+
+    if (data.session == null) {
+      alert('Confirm your email in order to sign in')
+      setShowSignIn(true)
+    }
   }
 
+  // Handle sign-in authentication with supabase
   const handleSignIn = async () => {
     if (!email || !password) {
       alert('Please fill in all fields')
@@ -37,16 +50,23 @@ function App() {
     
     setLoading(true)
     
-    // Simulate API call
-    setTimeout(() => {
-      alert(`Welcome back, ${email}!`)
-      setLoading(false)
-      setShowSignIn(false)
-      setEmail('')
-      setPassword('')
-    }, 1000)
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    })
+
+    if (error != null || data == null) {
+      alert('ERROR: Please try again')
+      return
+    }
+
+    setLoading(false)
+    setShowSignUp(false)
+    setEmail('')
+    setPassword('')
   }
 
+  // Reset sign-up/sign-in stateful variables
   const resetForm = () => {
     setShowSignUp(false)
     setShowSignIn(false)
